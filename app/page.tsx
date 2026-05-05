@@ -93,7 +93,7 @@ function FilteredProducts() {
 
         {/* White Filter Box (Cacyroy) */}
         <div className="bg-[#fcfcfc] rounded-2xl p-7 shadow-sm border border-gray-100">
-          <h2 className="text-xl font-bold mb-6 text-gray-900 tracking-tight">Cacyroy</h2>
+          <h2 className="text-xl font-bold mb-6 text-gray-900 tracking-tight">Category</h2>
           
           <div className="mb-8">
             <div className="space-y-4">
