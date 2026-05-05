@@ -1,7 +1,20 @@
-import React from 'react';
+"use client";
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearch } from '@/store/SearchContext';
+import { useCartStore } from '@/store/cartStore';
 
 export default function Header() {
+  const { searchQuery, setSearchQuery } = useSearch();
+  const items = useCartStore((state) => state.items);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const totalItems = items.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <header className="bg-[#0e62af] text-white py-4 px-6 md:px-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
@@ -20,17 +33,24 @@ export default function Header() {
           <input
             type="text"
             placeholder="Search for products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-[#12589e] border border-blue-400/50 text-white rounded-md py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-300 text-sm"
           />
         </div>
 
         {/* Cart button on right */}
-        <button className="bg-[#0b3874] hover:bg-[#082a5c] transition-colors flex items-center gap-2 px-5 py-2.5 rounded-md font-medium text-sm whitespace-nowrap">
+        <Link href="/cart" className="bg-[#0b3874] hover:bg-[#082a5c] transition-colors flex items-center gap-2 px-5 py-2.5 rounded-md font-medium text-sm whitespace-nowrap">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
           Cart
-        </button>
+          {mounted && totalItems > 0 && (
+            <span className="bg-white text-[#0b3874] text-xs font-bold px-2 py-0.5 rounded-full ml-1">
+              {totalItems}
+            </span>
+          )}
+        </Link>
       </div>
     </header>
   );

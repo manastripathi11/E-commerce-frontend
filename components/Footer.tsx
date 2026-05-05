@@ -13,7 +13,7 @@ export default function Footer() {
             All&nbsp;&nbsp;&nbsp;Elezeronk
           </p>
           <div className="mt-8 text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} WhatBytes
+            &copy; {new Date().getFullYear()} Manas
           </div>
         </div>
 
